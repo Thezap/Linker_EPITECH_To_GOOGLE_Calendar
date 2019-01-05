@@ -3,7 +3,9 @@ Link Epitech calendar to Google calendar
 
 # Usage :
 
-Create a config.json with this template
+Clone this repository
+
+Create a config.json with this template in it
 
 ```
 {
