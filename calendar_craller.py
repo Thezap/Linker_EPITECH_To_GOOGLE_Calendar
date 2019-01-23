@@ -35,9 +35,10 @@ def get_google_event_list(CALENDAR_ID):
         events = service.events().list(calendarId=CALENDAR_ID,
                                        pageToken=page_token).execute()
         for event in events['items']:
-            desc = format_codeevent(event['description'])
-            if desc is not None:
-                event_list.append(desc)
+            if 'description' in event:
+                desc = format_codeevent(event['description'])
+                if desc is not None:
+                    event_list.append(desc)
         page_token = events.get('nextPageToken')
         if not page_token:
             break
@@ -70,4 +71,3 @@ def creat_event(event_param, CALENDAR_ID):
     print(event)
     print(service.events().insert(calendarId=CALENDAR_ID,
                                   body=event).execute())
-
