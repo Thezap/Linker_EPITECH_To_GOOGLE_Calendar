@@ -55,13 +55,20 @@ def format_time(h):
 
 
 def creat_event(event_param, CALENDAR_ID):
+    if event_param['rdv_group_registered'] == "null":
+        en = format_time(event_param['end'])
+        st = format_time(event_param['start'])
+    else:
+        a = event_param['rdv_group_registered'].split('|')
+        en = format_time(a[1])
+        st = format_time(a[0])
     event = {
         "end": {
-            "dateTime": format_time(event_param['end']),
+            "dateTime": en,
             "timeZone": "Europe/Paris"
         },
         "start": {
-            "dateTime": format_time(event_param['start']),
+            "dateTime": st,
             "timeZone": "Europe/Paris"
         },
         "summary": event_param['acti_title'],

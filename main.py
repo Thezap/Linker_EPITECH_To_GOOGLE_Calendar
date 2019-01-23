@@ -3,6 +3,7 @@
 import parser
 import calendar_craller
 import json
+import sys
 
 
 def remove_doublon(epitech, google):
@@ -14,6 +15,7 @@ def remove_doublon(epitech, google):
 
 
 def main():
+    sys.stdout = open('calendar.log', 'w')
     j = json.load(open("config.json"))
     CALENDAR_ID = j['CALENDAR_ID']
     EPITECH_AUTH = j['EPITECH_AUTH']
