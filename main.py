@@ -15,7 +15,7 @@ def remove_doublon(epitech, google):
 
 
 def main():
-    sys.stdout = open('calendar.log', 'w')
+    sys.stdout = open('calendar.log', 'a')
     j = json.load(open("config.json"))
     CALENDAR_ID = j['CALENDAR_ID']
     EPITECH_AUTH = j['EPITECH_AUTH']
