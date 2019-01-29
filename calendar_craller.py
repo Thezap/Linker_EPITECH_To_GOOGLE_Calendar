@@ -55,7 +55,7 @@ def format_time(h):
 
 
 def creat_event(event_param, CALENDAR_ID):
-    if event_param['rdv_group_registered'] == "null":
+    if event_param['rdv_group_registered'] is None:
         en = format_time(event_param['end'])
         st = format_time(event_param['start'])
     else:
