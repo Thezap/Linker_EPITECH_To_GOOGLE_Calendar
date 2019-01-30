@@ -52,22 +52,5 @@ Run `sudo pip install --upgrade google-api-python-client oauth2client` to instal
 
 Run `python3 main.py` to execute the program. *You will need to connect to your Google account the first time.*
 
-Your `tree` should look like this:
-
-```
-$ tree
-.
-├── calendar_craller.py
-├── calendar.log
-├── config.json
-├── credentials.json
-├── main.py
-├── parser.py
-├── README.md
-└── token.json
-
-1 directory, 10 files
-```
-
 # Notes
 You can setup a crontab to synchronise your Epitech calendar regularly. (https://crontab.guru)
