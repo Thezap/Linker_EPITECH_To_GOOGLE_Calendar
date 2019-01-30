@@ -26,10 +26,10 @@ You need to copy-paste `auth-XXXX` in the `config.json` file for the `EPITECH_AU
 
 First things first, you can create an Epitech sub-calendar. This step is not mandatory, but creating a sub-calendar improves your general calendar clarity and its organisation.
 To do so, create a new calendar by clicking on this menu:
-![New Calendar](https://i.imgur.com/GWeeuUF.png)
+![New Calendar](https://i.imgur.com/THXXkR0.png)
 
 Then, select the `Settings and sharing` menu option for this sub-calendar:
-![Settings and sharing](https://s24454.pcdn.co/wp-content/uploads/2015/10/Capture.jpg)
+![Settings and sharing](https://i.imgur.com/mvFQdWB.jpg)
 
 Press `Ctrl+F`, search for `Calendar ID` in the page and copy-paste the address `XXXX@group.calendar.google.com` in the `config.json` file for the `CALENDAR_ID` key.
 
