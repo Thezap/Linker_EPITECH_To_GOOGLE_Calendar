@@ -34,7 +34,13 @@ Then, select the `Settings and sharing` menu option for this sub-calendar:
 Press `Ctrl+F`, search for `Calendar ID` in the page and copy-paste the address `XXXX@group.calendar.google.com` in the `config.json` file for the `CALENDAR_ID` key.
 
 
-In the end, your configuration file should look
+In the end, your configuration file should look like this:
+```json
+{
+    "CALENDAR_ID": "XXXX@group.calendar.google.com",
+    "EPITECH_AUTH": "auth-XXXX"
+}
+```
 
 ### APIs configuration
 
