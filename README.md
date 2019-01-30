@@ -1,30 +1,43 @@
 # Linker_EPITECH_To_GOOGLE_Calendar
-Link Epitech calendar to Google calendar
+Link your Epitech calendar to your Google calendar.
 
-# Usage :
+# Installation:
 
-Clone this repository
+### Basics
+- Clone this repository.
+- Create a `config.json` file with the following content:
 
-Create a config.json with this template in it
-
-```
+```json
 {
-    "CALENDAR_ID":"",
-    "EPITECH_AUTH":""
+    "CALENDAR_ID": "",
+    "EPITECH_AUTH": ""
 }
 ```
-For the `EPITECH_AUTH`, go to https://intra.epitech.eu/admin/autolog and copy the auth code starting by `auth-`.
 
-To get your `CALENDAR_ID`, follow this documentation : https://docs.simplecalendar.io/find-google-calendar-id/
+### Configuration
+- `EPITECH_AUTH`: add your Epitech autologin ID.
 
+This ID can be found on https://intra.epitech.eu/admin/autolog.
 
-Go to https://developers.google.com/calendar/quickstart/python and click on "Enable the google calendar API". Create a project and download client configuration.
+You need to copy paste `auth-XXXX` into the file.
 
-Copy the credentials.json on this folder.
+- `CALENDAR_ID`: add your Calendar ID.
 
-Run `sudo pip install --upgrade google-api-python-client oauth2client` to install the google api library.
+First things first, you can create an Epitech sub-calendar. This step is not mandatory, but creating a sub-calendar improves your general calendar clarity and its organisation.
+To do so, create a new calendar by clicking on this menu:
+![New Calendar](https://i.imgur.com/GWeeuUF.png)
 
-Launch `python3 main.py` and connect your Google account
-Your Google Calendar should be updated with the epitech one.
+Then, select the `Settings and sharing` menu option for this sub-calendar:
+![Settings and sharing](https://s24454.pcdn.co/wp-content/uploads/2015/10/Capture.jpg)
 
-You can set a crontab to fetch event at regular time (https://crontab.guru/).
+Search for `Calendar ID` in the page by pressing `Ctrl+F` and copy-paste the address `XXXX@group.calendar.google.com` in the configuration file.
+
+- APIs configuration
+
+Go to https://developers.google.com/calendar/quickstart/python and click on "Enable the Google Calendar API". Create a project and download the client configuration. The `credentials.json` must be located in the program directory.
+
+Run `sudo pip install --upgrade google-api-python-client oauth2client` to install the Google API library.
+
+Run `python3 main.py` once to link your Google account.
+
+You can setup a crontab to update your Epitech calendar regularly. (https://crontab.guru)
