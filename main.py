@@ -19,6 +19,9 @@ def main():
     j = json.load(open("config.json"))
     CALENDAR_ID = j['CALENDAR_ID']
     EPITECH_AUTH = j['EPITECH_AUTH']
+    if "http" in EPITECH_AUTH:
+        print("Check your Epitech Token\nShould be auth-xxx\n", file=sys.stderr)
+        exit(1)
     module_liste = parser.get_epitech_activity(EPITECH_AUTH)
     calendar_activity = calendar_craller.get_google_event_list(CALENDAR_ID)
     r_list = remove_doublon(module_liste, calendar_activity)
