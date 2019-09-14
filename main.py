@@ -6,10 +6,11 @@ import json
 import sys
 
 
-def remove_doublon(epitech, google):
+def remove_duplicate(epitech, google):
     r_list = []
     for i in epitech:
-        if i['codeevent'] not in google:
+        if ('codeevent' in i and i['codeevent'] not in google) \
+                or ('codeacti' in i and 'codeevent' not in i and i['codeacti'] not in google):
             r_list.append(i)
     return r_list
 
@@ -22,11 +23,12 @@ def main():
     if "http" in EPITECH_AUTH:
         print("Check your Epitech Token\nShould be auth-xxx\n", file=sys.stderr)
         exit(1)
-    module_liste = parser.get_epitech_activity(EPITECH_AUTH)
+    epitech_activities_list = parser.get_epitech_event(EPITECH_AUTH)
+    epitech_activities_list += parser.get_epitech_projects(EPITECH_AUTH)
     calendar_activity = calendar_craller.get_google_event_list(CALENDAR_ID)
-    r_list = remove_doublon(module_liste, calendar_activity)
+    r_list = remove_duplicate(epitech_activities_list, calendar_activity)
     for i in r_list:
-        calendar_craller.creat_event(i, CALENDAR_ID)
+        calendar_craller.create_event(i, CALENDAR_ID)
     print(str(len(r_list)) + " elements add to calendar")
 
 

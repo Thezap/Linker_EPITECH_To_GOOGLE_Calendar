@@ -18,7 +18,7 @@ if not creds or creds.invalid:
 service = build('calendar', 'v3', http=creds.authorize(Http()))
 
 
-def format_codeevent(description):
+def format_code_epitech(description):
     desc = description.split()[0]
     if desc[0] != '#':
         return
@@ -36,7 +36,7 @@ def get_google_event_list(CALENDAR_ID):
                                        pageToken=page_token).execute()
         for event in events['items']:
             if 'description' in event:
-                desc = format_codeevent(event['description'])
+                desc = format_code_epitech(event['description'])
                 if desc is not None:
                     event_list.append(desc)
         page_token = events.get('nextPageToken')
@@ -46,16 +46,43 @@ def get_google_event_list(CALENDAR_ID):
 
 
 def make_description(codeevent):
-    return "#codeevent=" + codeevent
+    return '#codeevent=' + codeevent
 
 
 def format_time(h):
-    t = time.strptime(h, "%Y-%m-%d %H:%M:%S")
-    return time.strftime("%Y-%m-%dT%H:%M:%S", t)
+    t = time.strptime(h, '%Y-%m-%d %H:%M:%S')
+    return time.strftime('%Y-%m-%dT%H:%M:%S', t)
 
 
-def creat_event(event_param, CALENDAR_ID):
-    if event_param['rdv_group_registered'] is None:
+def format_time_all_day(h):
+    t = time.strptime(h, '%Y-%m-%d %H:%M:%S')
+    return time.strftime('%Y-%m-%d', t)
+
+
+def create_event_project(event_param, CALENDAR_ID):
+    event = {
+        "end": {
+            "date": format_time_all_day(event_param['end']),
+            "timeZone": "Europe/Paris"
+        },
+        "start": {
+            "date": format_time_all_day(event_param['start']),
+            "timeZone": "Europe/Paris"
+        },
+        "summary": event_param['title'] + ' | ' + event_param['module_title'],
+        "description": make_description(event_param['codeacti']),
+        'transparency': 'transparent',
+    }
+    print(event)
+    print(service.events().insert(calendarId=CALENDAR_ID,
+                                  body=event).execute())
+
+
+def create_event(event_param, CALENDAR_ID):
+    if 'is_projet' in event_param:
+        create_event_project(event_param, CALENDAR_ID)
+        return
+    if 'rdv_group_registered' not in event_param or event_param['rdv_group_registered'] is None:
         en = format_time(event_param['end'])
         st = format_time(event_param['start'])
     else:
