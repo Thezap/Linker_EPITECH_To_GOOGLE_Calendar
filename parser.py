@@ -20,7 +20,7 @@ def get_epitech_modules(EPITECH_AUTH):
     r_json = requests.get(url).json()
     modules_registered = []
     for i in r_json:
-        if 'status' in i and i['status'] == 'ongoing':
+        if 'status' in i and i['status'] == 'ongoing' and i['title'][:2] != 'B0':
             modules_registered.append(i)
     return modules_registered
 
