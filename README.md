@@ -40,7 +40,8 @@ In the end, your configuration file should look like this:
 ```json
 {
     "CALENDAR_ID": "XXXX@group.calendar.google.com",
-    "EPITECH_AUTH": "auth-XXXX"
+    "EPITECH_AUTH": "auth-XXXX",
+    "GetModules": false
 }
 ```
 
