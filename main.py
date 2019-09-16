@@ -24,7 +24,8 @@ def main():
         print("Check your Epitech Token\nShould be auth-xxx\n", file=sys.stderr)
         exit(1)
     epitech_activities_list = parser.get_epitech_event(EPITECH_AUTH)
-    epitech_activities_list += parser.get_epitech_projects(EPITECH_AUTH)
+    if j['GetModules']:
+        epitech_activities_list += parser.get_epitech_projects(EPITECH_AUTH)
     calendar_activity = calendar_craller.get_google_event_list(CALENDAR_ID)
     r_list = remove_duplicate(epitech_activities_list, calendar_activity)
     for i in r_list:
