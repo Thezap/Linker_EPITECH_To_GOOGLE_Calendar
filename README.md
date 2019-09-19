@@ -10,7 +10,8 @@ Link your Epitech calendar to your Google calendar.
 ```json
 {
     "CALENDAR_ID": "",
-    "EPITECH_AUTH": ""
+    "EPITECH_AUTH": "",
+    "GetModules": false
 }
 ```
 
