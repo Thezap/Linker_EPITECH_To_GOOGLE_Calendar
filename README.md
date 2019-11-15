@@ -50,7 +50,7 @@ In the end, your configuration file should look like this:
 
 Go to https://developers.google.com/calendar/quickstart/python and click on "Enable the Google Calendar API". Create a project and download the client configuration. The `credentials.json` must be located in the program directory.
 
-Run `sudo pip install --upgrade google-api-python-client oauth2client` to install the Google API library.
+Run `sudo pip3 install --upgrade google-api-python-client oauth2client` to install the Google API library.
 
 Run `python3 main.py` to execute the program. *You will need to connect to your Google account the first time.*
 
