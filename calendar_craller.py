@@ -98,8 +98,8 @@ def create_event(event_param, CALENDAR_ID):
             "dateTime": st,
             "timeZone": "Europe/Paris"
         },
-        "summary": event_param['acti_title'],
-        "location": event_param['room']['code'],
+        "summary": event_param['acti_title'] if 'acti_title' in event_param else 'No title',
+        "location": event_param['room']['code'] if 'room' in event_param and 'code' in event_param['room'] else '',
         "description": make_description(event_param['codeevent'])
     }
     print(event)
