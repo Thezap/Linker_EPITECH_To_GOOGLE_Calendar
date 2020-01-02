@@ -11,7 +11,7 @@ def get_epitech_event(EPITECH_AUTH):
     activities_registered = []
     for i in r_json:
         if ('event_registered' in i and i['event_registered'] is not False) or ('status_manager' in i and i['status_manager'] is not None):
-            if i['status_manager'] is not None:
+            if 'status_manager' in i and i['status_manager'] is not None:
                 i['acti_title'] = f"[ORG] {i['acti_title']}"
             activities_registered.append(i)
     return activities_registered
