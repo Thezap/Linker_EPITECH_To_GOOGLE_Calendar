@@ -30,6 +30,7 @@ def main():
     r_list = remove_duplicate(epitech_activities_list, calendar_activity)
     for i in r_list:
         calendar_craller.create_event(i, CALENDAR_ID)
+    calendar_craller.remove_unregistered_events(epitech_activities_list, calendar_activity, CALENDAR_ID)
     print(str(len(r_list)) + " elements add to calendar")
 
 

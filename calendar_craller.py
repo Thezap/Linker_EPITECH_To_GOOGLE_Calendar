@@ -111,3 +111,50 @@ def create_event(event_param, CALENDAR_ID):
     print(event)
     print(service.events().insert(calendarId=CALENDAR_ID,
                                   body=event).execute())
+
+def get_google_events(CALENDAR_ID):
+    event_list = []
+
+    page_token = None
+    while True:
+        events = service.events().list(calendarId=CALENDAR_ID,
+                                       pageToken=page_token).execute()
+        for event in events['items']:
+            if 'description' in event:
+                desc = format_code_epitech(event['description'])
+                if desc is not None:
+                    event_list.append(event)
+        page_token = events.get('nextPageToken')
+        if not page_token:
+            break
+    return event_list
+
+
+def remove_google_event(event, google_events, CALENDAR_ID):
+    for g in google_events:
+        desc = format_code_epitech(g['description'])
+        if event == desc:
+            print(event)
+            print(service.events().delete(calendarId=CALENDAR_ID,
+                                          eventId=g['id'],
+                                          sendNotifications=False).execute())
+            return
+
+
+def remove_unregistered_events(epitech, google, CALENDAR_ID):
+    events_to_remove = []
+    for g in google:
+        to_remove = True
+        for e in epitech:
+            if not (('codeevent' in e and e['codeevent'] != g) or ('codeacti' in e and 'codeevent' not in e and e['codeacti'] != g)):
+                to_remove = False
+                break
+        if to_remove:
+            events_to_remove.append(g)
+
+    google_events = get_google_events(CALENDAR_ID)
+
+    for e in events_to_remove:
+        remove_google_event(e, google_events, CALENDAR_ID)
+
+    print(str(len(events_to_remove)) + " elements removed to calendar")
