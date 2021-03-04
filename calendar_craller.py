@@ -3,6 +3,7 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 import time
+from datetime import datetime
 
 SCOPES = 'https://www.googleapis.com/auth/calendar'
 
@@ -33,6 +34,7 @@ def get_google_event_list(CALENDAR_ID):
     page_token = None
     while True:
         events = service.events().list(calendarId=CALENDAR_ID,
+                                       timeMin=(datetime.now().isoformat('T') + 'Z'),
                                        pageToken=page_token).execute()
         for event in events['items']:
             if 'description' in event:
