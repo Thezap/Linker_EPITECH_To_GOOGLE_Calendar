@@ -53,9 +53,16 @@ In the end, your configuration file should look like this:
 
 Go to https://developers.google.com/calendar/quickstart/python and click on "Enable the Google Calendar API". Create a project and download the client configuration. The `credentials.json` must be located in the program directory.
 
-Run `sudo pip3 install --upgrade google-api-python-client oauth2client` to install the Google API library, and `sudo pip3 install -r requirements.txt` to install all other dependencies.
+Run `pip3 install -r requirements.txt --user` to install all dependencies.
 
 If you do not have access to an internet browser (e.g., in a server context) run `python3 main.py --noauth_local_webserver` otherwise run `python3 main.py` to execute the program. *You will need to connect to your Google account the first time.*
 
 # Notes
 You can setup a crontab to synchronise your Epitech calendar regularly. (https://crontab.guru)
+
+You can also setup a Docker container that will do the same by doing so inside the repository :
+
+- `docker build . -t epitech-google-calendar-linker:latest`
+- `docker run -d -e "SLEEP_TIME=..." epitech-google-calendar-linker:latest`
+
+by replacing "..." to define the rate at which it will synchronise (default is "6h", more info on format on <https://en.wikipedia.org/wiki/Sleep_(command>))
