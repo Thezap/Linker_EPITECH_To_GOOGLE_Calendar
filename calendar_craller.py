@@ -89,12 +89,19 @@ def create_event(event_param, CALENDAR_ID):
         a = event_param['rdv_group_registered'].split('|')
         en = format_time(a[1])
         st = format_time(a[0])
+
     summary = event_param['acti_title'] if ('acti_title' in event_param) and \
                                            (event_param['acti_title'] is not None) else 'No title'
     location = event_param['room']['code'] if ('room' in event_param) and \
                                               (event_param['room'] is not None) and \
                                               ('code' in event_param['room']) and \
                                               (event_param['room']['code'] is not None) else ''
+
+    attendees = []
+    for i in event_param['prof_inst'] if ('prof_inst' in event_param) else []:
+        if 'login' not in i or i['login'] is None:
+            continue
+        attendees.append({'email': i['login']})
     event = {
         "end": {
             "dateTime": en,
@@ -106,7 +113,8 @@ def create_event(event_param, CALENDAR_ID):
         },
         "summary": summary,
         "location": location,
-        "description": make_description(event_param['codeevent'])
+        "description": make_description(event_param['codeevent']),
+        "attendees": attendees
     }
     print(event)
     print(service.events().insert(calendarId=CALENDAR_ID,
