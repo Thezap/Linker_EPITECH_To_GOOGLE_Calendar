@@ -5,16 +5,15 @@ from oauth2client import file, client, tools
 import time
 
 SCOPES = 'https://www.googleapis.com/auth/calendar'
-PATH = "/home/rosbif/.local/bin/calendar_linker/"
 
 # The file token.json stores the user's access and refresh tokens, and is
 # created automatically when the authorization flow completes for the first
 # time.
 
-store = file.Storage(PATH + 'token.json')
+store = file.Storage('token.json')
 creds = store.get()
 if not creds or creds.invalid:
-    flow = client.flow_from_clientsecrets(PATH + 'credentials.json', SCOPES)
+    flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
     creds = tools.run_flow(flow, store)
 service = build('calendar', 'v3', http=creds.authorize(Http()))
 
