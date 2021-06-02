@@ -36,7 +36,7 @@ def get_google_event_list(CALENDAR_ID):
                                        pageToken=page_token).execute()
         for event in events['items']:
             if 'description' in event:
-                desc = format_code_epitech(event['description'])
+                desc = format_code_epitech(event['description'].split('\n')[0])
                 if desc is not None:
                     event_list.append(desc)
         page_token = events.get('nextPageToken')
@@ -54,7 +54,7 @@ def make_description(codeevent, attendees):
 
     for a in attendees:
         buff += a['displayName'] + ': ' + a['email'] + '\n'
-    return buff + '\n#codeevent=' + codeevent
+    return '#codeevent=' + codeevent + '\n\n' + buff
 
 
 def format_time(h):
