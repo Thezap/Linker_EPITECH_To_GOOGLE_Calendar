@@ -5,6 +5,7 @@ import calendar_craller
 import json
 import sys
 
+PATH = "/home/rosbif/.local/bin/calendar_linker/"
 
 def remove_duplicate(epitech, google):
     r_list = []
@@ -14,10 +15,9 @@ def remove_duplicate(epitech, google):
             r_list.append(i)
     return r_list
 
-
 def main():
-    sys.stdout = open('calendar.log', 'a')
-    j = json.load(open("config.json"))
+    sys.stdout = open(PATH + 'calendar.log', 'a')
+    j = json.load(open(PATH + "config.json"))
     CALENDAR_ID = j['CALENDAR_ID']
     EPITECH_AUTH = j['EPITECH_AUTH']
     if "http" in EPITECH_AUTH:
@@ -31,7 +31,6 @@ def main():
     for i in r_list:
         calendar_craller.create_event(i, CALENDAR_ID)
     print(str(len(r_list)) + " elements added to calendar")
-
 
 if __name__ == '__main__':
     main()

@@ -5,15 +5,16 @@ from oauth2client import file, client, tools
 import time
 
 SCOPES = 'https://www.googleapis.com/auth/calendar'
+PATH = "/home/rosbif/.local/bin/calendar_linker/"
 
 # The file token.json stores the user's access and refresh tokens, and is
 # created automatically when the authorization flow completes for the first
 # time.
 
-store = file.Storage('token.json')
+store = file.Storage(PATH + 'token.json')
 creds = store.get()
 if not creds or creds.invalid:
-    flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+    flow = client.flow_from_clientsecrets(PATH + 'credentials.json', SCOPES)
     creds = tools.run_flow(flow, store)
 service = build('calendar', 'v3', http=creds.authorize(Http()))
 
@@ -54,7 +55,7 @@ def make_description(codeevent, attendees):
 
     for a in attendees:
         buff += a['displayName'] + ': ' + a['email'] + '\n'
-    return '#codeevent=' + codeevent + '\n\n' + buff
+    return '#codeevent=' + codeevent + '\n\n' + buff 
 
 
 def format_time(h):
@@ -65,19 +66,6 @@ def format_time(h):
 def format_time_all_day(h):
     t = time.strptime(h, '%Y-%m-%d %H:%M:%S')
     return time.strftime('%Y-%m-%d', t)
-
-
-def get_attendees(event_param):
-    attendees = []
-    for i in event_param['prof_inst'] if ('prof_inst' in event_param) else []:
-        if 'login' not in i or i['login'] is None:
-            continue
-        attendees.append(
-          {
-            'email': i['login'],
-            'displayName': get_display_name(i['login'])
-          })
-    return attendees
 
 
 def create_event_project(event_param, CALENDAR_ID):
@@ -122,6 +110,19 @@ def get_display_name(login):
   clean_login = ''.join(filter(lambda item: not item.isdigit(), login))
   [firstname, lastname] = clean_login.split('@')[0].split('.')
   return firstname.capitalize() + ' ' + lastname.capitalize()
+
+
+def get_attendees(event_param):
+    attendees = []
+    for i in event_param['prof_inst'] if ('prof_inst' in event_param) else []:
+        if 'login' not in i or i['login'] is None:
+            continue
+        attendees.append(
+          {
+            'email': i['login'],
+            'displayName': get_display_name(i['login'])
+          })
+    return attendees
 
 
 def create_event(event_param, CALENDAR_ID):
