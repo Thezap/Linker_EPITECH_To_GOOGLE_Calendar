@@ -102,3 +102,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Generated and private files
+config.json
+credentials.json
+token.json
