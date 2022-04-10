@@ -1,11 +1,13 @@
-#!/bin/python3
+#!/usr/bin/env python3
+
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 import time
+from os import environ
 
 SCOPES = 'https://www.googleapis.com/auth/calendar'
-PATH = "/home/rosbif/.local/bin/calendar_linker/"
+PATH = environ['PWD'] + '/'
 
 # The file token.json stores the user's access and refresh tokens, and is
 # created automatically when the authorization flow completes for the first
@@ -55,7 +57,7 @@ def make_description(codeevent, attendees):
 
     for a in attendees:
         buff += a['displayName'] + ': ' + a['email'] + '\n'
-    return '#codeevent=' + codeevent + '\n\n' + buff 
+    return '#codeevent=' + codeevent + '\n\n' + buff
 
 
 def format_time(h):
@@ -107,9 +109,12 @@ def create_event_project(event_param, CALENDAR_ID):
 
 
 def get_display_name(login):
-  clean_login = ''.join(filter(lambda item: not item.isdigit(), login))
-  [firstname, lastname] = clean_login.split('@')[0].split('.')
-  return firstname.capitalize() + ' ' + lastname.capitalize()
+  try:
+    clean_login = ''.join(filter(lambda item: not item.isdigit(), login))
+    [firstname, lastname] = clean_login.split('@')[0].split('.')
+    return firstname.capitalize() + ' ' + lastname.capitalize()
+  except:
+    return login
 
 
 def get_attendees(event_param):

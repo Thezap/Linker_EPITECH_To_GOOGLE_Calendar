@@ -1,11 +1,12 @@
-#!/bin/python3
+#!/usr/bin/env python3
 
 import parser
 import calendar_craller
 import json
 import sys
+from os import environ
 
-PATH = "/home/rosbif/.local/bin/calendar_linker/"
+PATH = environ['PWD'] + '/'
 
 def remove_duplicate(epitech, google):
     r_list = []

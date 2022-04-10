@@ -1,9 +1,9 @@
-#!/bin/python3
+#!/usr/bin/env python3
+
 import requests
 import time
 
 BASE_URL = 'https://intra.epitech.eu/'
-
 
 def get_epitech_event(EPITECH_AUTH):
     url = BASE_URL + EPITECH_AUTH + '/planning/load?format=json&start='

@@ -102,6 +102,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
 token.json
 config.json
 credentials.json
+raycast-epitech-calendar-linker.py
