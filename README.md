@@ -10,18 +10,18 @@ Link your Epitech calendar to your Google calendar.
 ```json
 {
     "CALENDAR_ID": "",
-    "EPITECH_AUTH": "",
+    "USER_COOKIE": "",
     "GetModules": false
 }
 ```
 
 ## Configuration
 ### Authentications
-#### Add your Epitech autologin ID.
+#### Add your Epitech session Cookie.
 
-This ID can be found on https://intra.epitech.eu/admin/autolog.
+Find it by going on the intra and going into dev console -> application -> cookies -> user 
 
-You need to copy-paste `auth-XXXX` in the `config.json` file for the `EPITECH_AUTH` key.
+You need to copy the value inside the config json.
 
 #### Add your Calendar ID.
 
@@ -44,7 +44,7 @@ In the end, your configuration file should look like this:
 ```json
 {
     "CALENDAR_ID": "XXXX@group.calendar.google.com",
-    "EPITECH_AUTH": "auth-XXXX",
+    "USER_COOKIE": "XXXXXXXX",
     "GetModules": false
 }
 ```

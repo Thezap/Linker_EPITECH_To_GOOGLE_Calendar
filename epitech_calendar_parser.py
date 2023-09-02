@@ -5,9 +5,12 @@ import time
 BASE_URL = 'https://intra.epitech.eu/'
 
 
-def get_epitech_event(EPITECH_AUTH):
-    url = BASE_URL + EPITECH_AUTH + '/planning/load?format=json&start='
-    r_json = requests.get(url + time.strftime("%Y-%m-%d")).json()
+def get_epitech_event(COOKIE):
+    url = BASE_URL + '/planning/load?format=json&start='
+    r_json = requests.get(url + time.strftime("%Y-%m-%d"), 
+    # Add a auth cookie to the request
+    cookies={'user': COOKIE}
+    ).json()
     activities_registered = []
     for i in r_json:
         if ('event_registered' in i and i['event_registered'] is not False) or (
@@ -18,9 +21,11 @@ def get_epitech_event(EPITECH_AUTH):
     return activities_registered
 
 
-def get_epitech_modules(EPITECH_AUTH):
-    url = BASE_URL + EPITECH_AUTH + '/course/filter?format=json'
-    r_json = requests.get(url).json()
+def get_epitech_modules(COOKIE):
+    url = BASE_URL + '/course/filter?format=json'
+    r_json = requests.get(url, 
+        cookies={'user': COOKIE}
+).json()
     modules_registered = []
     for i in r_json:
         if 'status' in i and i['status'] == 'ongoing' and i['title'][:2] != 'B0':
@@ -28,10 +33,12 @@ def get_epitech_modules(EPITECH_AUTH):
     return modules_registered
 
 
-def get_module_projects(EPITECH_AUTH, module):
-    url = BASE_URL + EPITECH_AUTH + '/module/' + str(module['scolaryear']) + '/' + module['code'] + '/' \
+def get_module_projects(COOKIE, module):
+    url = BASE_URL + '/module/' + str(module['scolaryear']) + '/' + module['code'] + '/' \
           + module['codeinstance'] + '/?format=json'
-    r_json = requests.get(url).json()
+    r_json = requests.get(url, 
+        cookies={'user': COOKIE}
+).json()
     projects = []
     if 'activites' not in r_json:
         return projects
@@ -42,9 +49,9 @@ def get_module_projects(EPITECH_AUTH, module):
     return projects
 
 
-def get_epitech_projects(EPITECH_AUTH):
-    modules = get_epitech_modules(EPITECH_AUTH)
+def get_epitech_projects(COOKIE):
+    modules = get_epitech_modules(COOKIE)
     projects = []
     for i in modules:
-        projects += get_module_projects(EPITECH_AUTH, i)
+        projects += get_module_projects(COOKIE, i)
     return projects

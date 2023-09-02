@@ -1,0 +1,5 @@
+{
+	"CALENDAR_ID": "{SOMETHING}@group.calendar.google.com",
+	"USER_COOKIE": "{BIG LONG COOKIE}",
+	"GetModules": false
+}
