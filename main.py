@@ -19,18 +19,15 @@ def main():
     sys.stdout = open('calendar.log', 'a')
     j = json.load(open("config.json"))
     CALENDAR_ID = j['CALENDAR_ID']
-    EPITECH_AUTH = j['EPITECH_AUTH']
-    if "http" in EPITECH_AUTH:
-        print("Check your Epitech Token\nShould be auth-xxx\n", file=sys.stderr)
-        exit(1)
-    epitech_activities_list = parser.get_epitech_event(EPITECH_AUTH)
+    COOKIE = j['USER_COOKIE']
+    epitech_activities_list = parser.get_epitech_event(COOKIE)
     if j['GetModules']:
-        epitech_activities_list += parser.get_epitech_projects(EPITECH_AUTH)
+        epitech_activities_list += parser.get_epitech_projects(COOKIE)
     calendar_activity = calendar_craller.get_google_event_list(CALENDAR_ID)
     r_list = remove_duplicate(epitech_activities_list, calendar_activity)
     for i in r_list:
         calendar_craller.create_event(i, CALENDAR_ID)
-    print(str(len(r_list)) + " elements add to calendar")
+    print(str(len(r_list)) + " elements added to calendar")
 
 
 if __name__ == '__main__':

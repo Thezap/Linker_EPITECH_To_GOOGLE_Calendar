@@ -5,6 +5,7 @@ from oauth2client import file, client, tools
 import time
 
 SCOPES = 'https://www.googleapis.com/auth/calendar'
+BASE_URL = 'https://intra.epitech.eu'
 
 # The file token.json stores the user's access and refresh tokens, and is
 # created automatically when the authorization flow completes for the first
@@ -44,11 +45,6 @@ def get_google_event_list(CALENDAR_ID):
             break
     return event_list
 
-
-def make_description(codeevent):
-    return '#codeevent=' + codeevent
-
-
 def format_time(h):
     t = time.strptime(h, '%Y-%m-%d %H:%M:%S')
     return time.strftime('%Y-%m-%dT%H:%M:%S', t)
@@ -70,7 +66,7 @@ def create_event_project(event_param, CALENDAR_ID):
             "timeZone": "Europe/Paris"
         },
         "summary": event_param['title'] + ' | ' + event_param['module_title'],
-        "description": make_description(event_param['codeacti']),
+        "description": f'{BASE_URL}/module/{event_param["scolaryear"]}/{event_param["codemodule"]}/{event_param["codeinstance"]}/{event_param["codeacti"]}',
         'transparency': 'transparent',
     }
     print(event)
@@ -106,7 +102,7 @@ def create_event(event_param, CALENDAR_ID):
         },
         "summary": summary,
         "location": location,
-        "description": make_description(event_param['codeevent'])
+        "description": f'{BASE_URL}/module/{event_param["scolaryear"]}/{event_param["codemodule"]}/{event_param["codeinstance"]}/{event_param["codeacti"]}',
     }
     print(event)
     print(service.events().insert(calendarId=CALENDAR_ID,
