@@ -66,7 +66,7 @@ def create_event_project(event_param, CALENDAR_ID):
             "timeZone": "Europe/Paris"
         },
         "summary": event_param['title'] + ' | ' + event_param['module_title'],
-        "description": f'{BASE_URL}/module/{event_param["scolaryear"]}/{event_param["codemodule"]}/{event_param["codeinstance"]}/{event_param["codeacti"]}',
+        "description": f'#codeevent={event_param['codeevent']}\n{BASE_URL}/module/{event_param["scolaryear"]}/{event_param["codemodule"]}/{event_param["codeinstance"]}/{event_param["codeacti"]}',
         'transparency': 'transparent',
     }
     print(event)
@@ -102,7 +102,7 @@ def create_event(event_param, CALENDAR_ID):
         },
         "summary": summary,
         "location": location,
-        "description": f'{BASE_URL}/module/{event_param["scolaryear"]}/{event_param["codemodule"]}/{event_param["codeinstance"]}/{event_param["codeacti"]}',
+        "description": f'#codeevent={event_param['codeevent']}\n{BASE_URL}/module/{event_param["scolaryear"]}/{event_param["codemodule"]}/{event_param["codeinstance"]}/{event_param["codeacti"]}',
     }
     print(event)
     print(service.events().insert(calendarId=CALENDAR_ID,
