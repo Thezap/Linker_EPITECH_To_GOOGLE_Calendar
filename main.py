@@ -4,7 +4,7 @@ import epitech_calendar_parser as parser
 import calendar_craller
 import json
 import sys
-
+import time
 
 def remove_duplicate(epitech, google):
     r_list = []
@@ -27,7 +27,7 @@ def main():
     r_list = remove_duplicate(epitech_activities_list, calendar_activity)
     for i in r_list:
         calendar_craller.create_event(i, CALENDAR_ID)
-    print(str(len(r_list)) + " elements added to calendar")
+    print("[" + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()) + "] " + str(len(r_list)) + " elements added to calendar")
 
 
 if __name__ == '__main__':

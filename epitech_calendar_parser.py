@@ -5,11 +5,11 @@ import time
 BASE_URL = 'https://intra.epitech.eu/'
 
 
-def get_epitech_event(COOKIE):
+def get_epitech_event(cookie):
     url = BASE_URL + '/planning/load?format=json&start='
     r_json = requests.get(url + time.strftime("%Y-%m-%d"), 
     # Add a auth cookie to the request
-    cookies={'user': COOKIE}
+    cookies={'user': cookie}
     ).json()
     activities_registered = []
     for i in r_json:
@@ -21,23 +21,23 @@ def get_epitech_event(COOKIE):
     return activities_registered
 
 
-def get_epitech_modules(COOKIE):
+def get_epitech_modules(cookie):
     url = BASE_URL + '/course/filter?format=json'
     r_json = requests.get(url, 
-        cookies={'user': COOKIE}
+        cookies={'user': cookie}
 ).json()
     modules_registered = []
     for i in r_json:
-        if 'status' in i and i['status'] == 'ongoing' and i['title'][:2] != 'B0':
+        if 'status' in i and i['status'] == 'ongoing' and not i['title'].startswith('B0'):
             modules_registered.append(i)
     return modules_registered
 
 
-def get_module_projects(COOKIE, module):
+def get_module_projects(cookie, module):
     url = BASE_URL + '/module/' + str(module['scolaryear']) + '/' + module['code'] + '/' \
           + module['codeinstance'] + '/?format=json'
     r_json = requests.get(url, 
-        cookies={'user': COOKIE}
+        cookies={'user': cookie}
 ).json()
     projects = []
     if 'activites' not in r_json:
@@ -49,9 +49,9 @@ def get_module_projects(COOKIE, module):
     return projects
 
 
-def get_epitech_projects(COOKIE):
-    modules = get_epitech_modules(COOKIE)
+def get_epitech_projects(cookie):
+    modules = get_epitech_modules(cookie)
     projects = []
     for i in modules:
-        projects += get_module_projects(COOKIE, i)
+        projects += get_module_projects(cookie, i)
     return projects
