@@ -67,7 +67,6 @@ def create_event_project(event_param, calendar_id):
             "timeZone": TIMEZONE
         },
         "summary": event_param['title'] + ' | ' + event_param['module_title'],
-        "description": f'#codeevent={event_param["codeevent"]}\n{BASE_URL}/module/{event_param["scolaryear"]}/{event_param["codemodule"]}/{event_param["codeinstance"]}/{event_param["codeacti"]}',
         'transparency': 'transparent',
     }
     print(event)
