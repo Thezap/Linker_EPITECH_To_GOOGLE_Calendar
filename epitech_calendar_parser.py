@@ -27,7 +27,7 @@ def get_epitech_event(cookie):
 def get_epitech_modules(cookie):
     url = BASE_URL + '/course/filter?format=json'
     r_json = requests.get(url, 
-        cookies={'user': cookie}
+        cookies={'user': cookie}, headers=HEADERS
 ).json()
     modules_registered = []
     for i in r_json:
@@ -40,7 +40,7 @@ def get_module_projects(cookie, module):
     url = BASE_URL + '/module/' + str(module['scolaryear']) + '/' + module['code'] + '/' \
           + module['codeinstance'] + '/?format=json'
     r_json = requests.get(url, 
-        cookies={'user': cookie}
+        cookies={'user': cookie}, headers=HEADERS
 ).json()
     projects = []
     if 'activites' not in r_json:
