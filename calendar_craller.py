@@ -6,6 +6,7 @@ import time
 
 SCOPES = 'https://www.googleapis.com/auth/calendar'
 BASE_URL = 'https://intra.epitech.eu'
+TIMEZONE = "Europe/Paris"
 
 # The file token.json stores the user's access and refresh tokens, and is
 # created automatically when the authorization flow completes for the first
@@ -22,18 +23,18 @@ service = build('calendar', 'v3', http=creds.authorize(Http()))
 def format_code_epitech(description):
     desc = description.split()[0]
     if desc[0] != '#':
-        return
+        return None
     if desc[1:11] != "codeevent=":
-        return
+        return None
     return desc[11:]
 
 
-def get_google_event_list(CALENDAR_ID):
+def get_google_event_list(calendar_id):
     event_list = []
 
     page_token = None
     while True:
-        events = service.events().list(calendarId=CALENDAR_ID,
+        events = service.events().list(calendarId=calendar_id,
                                        pageToken=page_token).execute()
         for event in events['items']:
             if 'description' in event:
@@ -55,28 +56,27 @@ def format_time_all_day(h):
     return time.strftime('%Y-%m-%d', t)
 
 
-def create_event_project(event_param, CALENDAR_ID):
+def create_event_project(event_param, calendar_id):
     event = {
         "end": {
             "date": format_time_all_day(event_param['end']),
-            "timeZone": "Europe/Paris"
+            "timeZone": TIMEZONE
         },
         "start": {
             "date": format_time_all_day(event_param['start']),
-            "timeZone": "Europe/Paris"
+            "timeZone": TIMEZONE
         },
         "summary": event_param['title'] + ' | ' + event_param['module_title'],
-        "description": f'#codeevent={event_param["codeevent"]}\n{BASE_URL}/module/{event_param["scolaryear"]}/{event_param["codemodule"]}/{event_param["codeinstance"]}/{event_param["codeacti"]}',
         'transparency': 'transparent',
     }
     print(event)
-    print(service.events().insert(calendarId=CALENDAR_ID,
+    print(service.events().insert(calendarId=calendar_id,
                                   body=event).execute())
 
 
-def create_event(event_param, CALENDAR_ID):
+def create_event(event_param, calendar_id):
     if 'is_projet' in event_param:
-        create_event_project(event_param, CALENDAR_ID)
+        create_event_project(event_param, calendar_id)
         return
     if 'rdv_group_registered' not in event_param or event_param['rdv_group_registered'] is None:
         en = format_time(event_param['end'])
@@ -94,16 +94,16 @@ def create_event(event_param, CALENDAR_ID):
     event = {
         "end": {
             "dateTime": en,
-            "timeZone": "Europe/Paris"
+            "timeZone": TIMEZONE
         },
         "start": {
             "dateTime": st,
-            "timeZone": "Europe/Paris"
+            "timeZone": TIMEZONE
         },
         "summary": summary,
         "location": location,
         "description": f'#codeevent={event_param["codeevent"]}\n{BASE_URL}/module/{event_param["scolaryear"]}/{event_param["codemodule"]}/{event_param["codeinstance"]}/{event_param["codeacti"]}',
     }
     print(event)
-    print(service.events().insert(calendarId=CALENDAR_ID,
+    print(service.events().insert(calendarId=calendar_id,
                                   body=event).execute())
